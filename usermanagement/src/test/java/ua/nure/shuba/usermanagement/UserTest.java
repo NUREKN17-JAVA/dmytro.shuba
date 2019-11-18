@@ -1,6 +1,7 @@
-package ua.nure.shuba.usermanagement;
+package java.ua.nure.shuba.usermanagement;
 
 import junit.framework.TestCase;
+import ua.nure.shuba.usermanagement.entity.User;
 
 import java.util.Calendar;
 
@@ -49,7 +50,7 @@ public class UserTest extends TestCase {
     public void testGetAgeIfBirthdayToday() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(YEAR_OF_BIRTH, MONTH_OF_BIRTH_TODAY, DAY_OF_BIRTH_TODAY);
-        user.setBirthdayDate(calendar.getTime());
+        user.setDateOfBirth(calendar.getTime());
         assertEquals(AGE_TODAY, user.getAge());
     }
 
@@ -62,7 +63,7 @@ public class UserTest extends TestCase {
     public void testGetAgeIfBirthdayInTheFuture() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(YEAR_OF_BIRTH, MONTH_OF_BIRTH_FUTURE, DAY_OF_BIRTH_FUTURE);
-        user.setBirthdayDate(calendar.getTime());
+        user.setDateOfBirth(calendar.getTime());
         assertEquals(AGE_FUTURE, user.getAge());
     }
 
@@ -70,21 +71,21 @@ public class UserTest extends TestCase {
         Calendar calendar = Calendar.getInstance();
         calendar.set(YEAR_OF_BIRTH, MONTH_OF_BIRTH_YESTERDAY,
                 DAY_OF_BIRTH_YESTERDAY);
-        user.setBirthdayDate(calendar.getTime());
+        user.setDateOfBirth(calendar.getTime());
         assertEquals(AGE_YESTERDAY, user.getAge());
     }
 
     public void testGetAgeIfBirthdayTomorrow() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(YEAR_OF_BIRTH, MONTH_OF_BIRTH3, DAY_OF_BIRTH3);
-        user.setBirthdayDate(calendar.getTime());
+        user.setDateOfBirth(calendar.getTime());
         assertEquals(AGE_TOMORROW, user.getAge());
     }
 
     public void testGetAgeIfBirthdayInThePast() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(YEAR_OF_BIRTH, MONTH_OF_BIRTH_PAST, DAY_OF_BIRTH_PAST);
-        user.setBirthdayDate(calendar.getTime());
+        user.setDateOfBirth(calendar.getTime());
         assertEquals(AGE_PAST, user.getAge());
     }
 }

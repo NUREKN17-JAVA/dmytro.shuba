@@ -1,35 +1,15 @@
-package ua.nure.shuba.usermanagement;
+package ua.nure.shuba.usermanagement.entity;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
 
 public class User {
-
-    private static final long SERIAL_VERSION_UID = -5553481350681901428L;
-
+    private static final long serialVersionUID = -5553481350681901428L;
     private Long id;
     private String firstName;
     private String lastName;
-    private Date birthdayDate;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (o == null || getClass() != o.getClass())
-            return false;
-        User user = (User) o;
-        return Objects.equals(id, user.id) && Objects
-                .equals(firstName, user.firstName) && Objects
-                .equals(lastName, user.lastName) && Objects
-                .equals(birthdayDate, user.birthdayDate);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, firstName, lastName, birthdayDate);
-    }
+    private Date dateOfBirth;
 
     public Long getId() {
         return id;
@@ -55,12 +35,30 @@ public class User {
         this.lastName = lastName;
     }
 
-    public Date getBirthdayDate() {
-        return birthdayDate;
+    public Date getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    public void setBirthdayDate(Date birthdayDate) {
-        this.birthdayDate = birthdayDate;
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id) && Objects
+                .equals(firstName, user.firstName) && Objects
+                .equals(lastName, user.lastName) && Objects
+                .equals(dateOfBirth, user.dateOfBirth);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstName, lastName, dateOfBirth);
     }
 
     public String getFullName() {
@@ -71,28 +69,28 @@ public class User {
         int age = 0;
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
-
         int currentYear = calendar.get(Calendar.YEAR);
         int currentMonth = calendar.get(Calendar.MONTH);
         int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
-
-        calendar.setTime(getBirthdayDate());
+        calendar.setTime(getDateOfBirth());
         int birthYear = calendar.get(Calendar.YEAR);
         int birthDay = calendar.get(Calendar.DAY_OF_MONTH);
         int birthMonth = calendar.get(Calendar.MONTH);
-
         int age1 = currentYear - birthYear;
         int age2 = currentYear - birthYear - 1;
-
         if (birthMonth < currentMonth) {
             age = age1;
-        } else if (birthMonth > currentMonth) {
+        }
+        if (birthMonth > currentMonth) {
             age = age2;
-        } else if (birthDay > currentDay) {
+        }
+        if (birthMonth == currentMonth && birthDay > currentDay) {
             age = age2;
-        } else if (birthDay < currentDay) {
+        }
+        if (birthMonth == currentMonth && birthDay < currentDay) {
             age = age1;
-        } else {
+        }
+        if (birthMonth == currentMonth && birthDay == currentDay) {
             age = age1;
         }
         return age;
