@@ -1,4 +1,4 @@
-package java.ua.nure.shuba.usermanagement;
+package ua.nure.shuba.usermanagement;
 
 import junit.framework.TestCase;
 import ua.nure.shuba.usermanagement.entity.User;
