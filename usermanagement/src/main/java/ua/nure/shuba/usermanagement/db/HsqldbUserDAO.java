@@ -135,6 +135,31 @@ public class HsqldbUserDAO implements DAO<User> {
     }
 
     @Override
+    public Collection find(String firstName, String lastName) throws DatabaseException {
+        Connection connection = connectionFactory.createConnection();
+        User user = new User();
+        try {
+            PreparedStatement statement = connection
+                    .prepareStatement(FIND_QUERY);
+            statement.setLong(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                user = new User();
+                user.setId(resultSet.getLong(1));
+                user.setFirstName(resultSet.getString(2));
+                user.setLastName(resultSet.getString(3));
+                user.setDateOfBirth(resultSet.getDate(4));
+            }
+            resultSet.close();
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            throw new DatabaseException(e);
+        }
+        return user;
+    }
+
+    @Override
     public Collection<User> findAll() throws DatabaseException {
         Collection<User> users = new LinkedList<>();
         try {
